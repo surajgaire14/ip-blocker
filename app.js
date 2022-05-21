@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const NodeCache = require("node-cache");
-const customCache = new NodeCache();
+// const customCache = new NodeCache();
 
 /**
  * * @setups => application setups
@@ -48,21 +48,23 @@ const apiLimiter = rateLimit({
  * * @routes => application routes
  */
 app
-  .get("/", apiLimiter, csrfProtection, (req, res) => {
-    if (!customCache.has("csrfToken")) {
-      const csrfToken = req.csrfToken();
+  .get("/", apiLimiter, csrfProtection, async (req, res) => {
+    const message = "Welcome to The Boring School's IP Address Banner API 🚀.";
 
-      customCache.set("csrfToken", token, 10 * 60);
+    try {
+      const csrfToken = await req.csrfToken();
+
+      /**
+       * @dev caching not required since api limiter is working!
+       */
+      // customCache.set("csrfToken", csrfToken, 10 * 60);
 
       res.json({
-        msg: "Welcome to The Boring School's IP Address Banner API 🚀.",
+        msg: message,
         csrfToken,
       });
-    } else {
-      res.json({
-        msg: "Welcome to The Boring School's IP Address Banner API 🚀.",
-        csrfToken,
-      });
+    } catch (error) {
+      console.log(error);
     }
   })
   /**
