@@ -25,5 +25,5 @@ if (cluster.isPrimary) {
         console.log(`Server Running => http://localhost:${PORT}`);
     });
 
-  console.log(`Worker ${process.pid} started`);
+  console.log(`\nWorker ${process.pid} started`);
 }
