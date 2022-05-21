@@ -49,15 +49,14 @@ const apiLimiter = rateLimit({
  */
 app
   .get("/", apiLimiter, csrfProtection, (req, res) => {
-      const csrfToken = req.csrfToken();
+    const csrfToken = req.csrfToken();
 
     //   customCache.set("csrfToken", token, 10 * 60);
 
-      res.json({
-        msg: "Welcome to The Boring School's IP Address Banner API 🚀.",
-        csrfToken,
-      });
-    }
+    res.json({
+      msg: "Welcome to The Boring School's IP Address Banner API 🚀.",
+      csrfToken,
+    });
   })
   /**
    * @dev POST /ip => may raise Invalid CSRF Token error, solution explained
