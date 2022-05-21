@@ -48,23 +48,15 @@ const apiLimiter = rateLimit({
  * * @routes => application routes
  */
 app
-  .get("/", apiLimiter, csrfProtection, async (req, res) => {
-    const message = "Welcome to The Boring School's IP Address Banner API 🚀.";
+  .get("/", apiLimiter, csrfProtection, (req, res) => {
+      const csrfToken = req.csrfToken();
 
-    try {
-      const csrfToken = await req.csrfToken();
-
-      /**
-       * @dev caching not required since api limiter is working!
-       */
-      // customCache.set("csrfToken", csrfToken, 10 * 60);
+    //   customCache.set("csrfToken", token, 10 * 60);
 
       res.json({
-        msg: message,
+        msg: "Welcome to The Boring School's IP Address Banner API 🚀.",
         csrfToken,
       });
-    } catch (error) {
-      console.log(error);
     }
   })
   /**
