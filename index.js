@@ -1,10 +1,10 @@
-const dotenv = require("dotenv");
 const cluster = require("node:cluster");
 const http = require("node:http");
 const numCPUs = require("node:os").cpus().length;
 const process = require("node:process");
+const geoip = require("./controller/ipController")
 
-dotenv.config();
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3001;
 const app = require('./app')

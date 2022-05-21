@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const NodeCache = require("node-cache");
+const geoip = require("./controller/ipController");
 // const customCache = new NodeCache();
 
 /**
@@ -19,6 +20,8 @@ const app = express();
 app.use(cors());
 // parse application/json
 app.use(bodyParser.json());
+
+app.use("/",geoip)
 
 /**
  * @dev Cross-site request forgery protection
